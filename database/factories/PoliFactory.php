@@ -18,7 +18,8 @@ class PoliFactory extends Factory
     public function definition(): array
     {    
         return [
-            'kode'      => fake()->unique()->regexify('POL-[A-Z]{3}[1-9]{2}'),
+            'kode' => 'POLI-' . fake()->unique()->numerify('########'),
+            // 'kode'      => fake()->unique()->regexify('POL-[A-Z]{3}[1-9]{2}'),
             'nama'      => fake()->randomElement([
                 'Poli Umum',
                 'Poli Anak',

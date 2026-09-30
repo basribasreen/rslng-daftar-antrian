@@ -15,7 +15,12 @@ class Poli extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
-
+    
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class);
+    }
+    
     public function scopeSearch(Builder $query, ?string $term): Builder
     {
         return $query->when($term, function ($q) use ($term) {

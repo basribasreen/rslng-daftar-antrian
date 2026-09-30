@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('pembayarans.index')" :active="request()->routeIs('pembayarans.index')">
                         {{ __('Jenis Pembayaran') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pendaftarans.index')" :active="request()->routeIs('pendaftarans.index')">
+                        {{ __('Pendaftaran') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -94,6 +97,10 @@
             <x-responsive-nav-link :href="route('pembayarans.index')" :active="request()->routeIs('pembayarans.index')">
                 {{ __('Jenis Pembayaran') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pendaftarans.index')" :active="request()->routeIs('pendaftarans.index')">
+                {{ __('Pendaftaran') }}
+            </x-responsive-nav-link>
+            
         </div>
 
         <!-- Responsive Settings Options -->

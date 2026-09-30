@@ -18,7 +18,8 @@ class DokterFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode'      => fake()->unique()->regexify('DOK-[A-Z]{3}[1-9]{2}'),
+            'kode' => 'DOK-' . fake()->unique()->numerify('########'),
+            // 'kode'      => fake()->unique()->regexify('DOK-[A-Z]{3}[1-9]{2}'),
             'nama'      => fake()->name(),
             'spesialis'      => fake()->randomElement([
                 'Dokter Umum',

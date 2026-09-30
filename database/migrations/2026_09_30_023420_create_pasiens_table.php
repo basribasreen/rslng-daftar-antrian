@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
             $table->string('kode')->unique();
-            $table->string('nik')->unique();
+            $table->string('nik', 16)->unique();
             $table->string('nama');
             $table->boolean('is_active')->default(true);
             $table->string('nohp')->nullable();

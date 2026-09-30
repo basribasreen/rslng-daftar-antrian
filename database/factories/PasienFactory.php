@@ -18,8 +18,10 @@ class PasienFactory extends Factory
     public function definition(): array
     {
         return [
-            'kode'      => fake()->unique()->regexify('RM-[A-Z]{3}[1-9]{2}'),
-            'nik'      => fake()->randomDigit(),
+            'kode' => 'RM-' . fake()->unique()->numerify('########'),
+            // 'kode'      => fake()->unique()->regexify('RM-[A-Z]{3}[1-9]{2}'),
+            // 'nik'      => fake()->randomDigit(),
+            'nik'      => fake()->unique()->numerify('################'),
             'nama'      => fake()->name(),
             'is_active' => fake()->boolean(30),
             'nohp' => fake()->phoneNumber(),

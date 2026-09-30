@@ -35,6 +35,10 @@ class RolePermissionsSeeder extends Seeder
         Permission::findOrCreate('pembayarans.create-any');
         Permission::findOrCreate('pembayarans.update-any');
         Permission::findOrCreate('pembayarans.delete-any');
+        Permission::findOrCreate('pendaftarans.view-any');
+        Permission::findOrCreate('pendaftarans.create-any');
+        Permission::findOrCreate('pendaftarans.update-any');
+        Permission::findOrCreate('pendaftarans.delete-any');
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
@@ -56,6 +60,10 @@ class RolePermissionsSeeder extends Seeder
             'pembayarans.create-any',
             'pembayarans.update-any',
             'pembayarans.delete-any',
+            'pendaftarans.view-any',
+            'pendaftarans.create-any',
+            'pendaftarans.update-any',
+            'pendaftarans.delete-any',
         ];
         $admin = Role::findOrCreate('admin')
             ->givePermissionTo($adminPermission);
@@ -66,6 +74,10 @@ class RolePermissionsSeeder extends Seeder
             'dokters.view-any',
             'pasiens.view-any',
             'pembayarans.view-any',
+            'pendaftarans.view-any',
+            'pendaftarans.create-any',
+            'pendaftarans.update-any',
+            'pendaftarans.delete-any',
         ];
         
         $staff = Role::findOrCreate('staff')
