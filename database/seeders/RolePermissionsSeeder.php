@@ -19,10 +19,14 @@ class RolePermissionsSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'polis.view-any']);
-        Permission::create(['name' => 'polis.create-any']);
-        Permission::create(['name' => 'polis.update-any']);
-        Permission::create(['name' => 'polis.delete-any']);
+        Permission::findOrCreate('polis.view-any');
+        Permission::findOrCreate('polis.create-any');
+        Permission::findOrCreate('polis.update-any');
+        Permission::findOrCreate('polis.delete-any');
+        Permission::findOrCreate('dokters.view-any');
+        Permission::findOrCreate('dokters.create-any');
+        Permission::findOrCreate('dokters.update-any');
+        Permission::findOrCreate('dokters.delete-any');
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
@@ -32,6 +36,10 @@ class RolePermissionsSeeder extends Seeder
             'polis.create-any',
             'polis.update-any',
             'polis.delete-any',
+            'dokters.view-any',
+            'dokters.create-any',
+            'dokters.update-any',
+            'dokters.delete-any',
         ];
         $admin = Role::findOrCreate('admin')
             ->givePermissionTo($adminPermission);
@@ -39,6 +47,7 @@ class RolePermissionsSeeder extends Seeder
         
         $staffPermission = [
             'polis.view-any',
+            'dokters.view-any',
         ];
         
         $staff = Role::findOrCreate('staff')
