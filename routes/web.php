@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\JenisPembayaranController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('polis', PoliController::class);
     Route::resource('dokters', DokterController::class);
     Route::resource('pasiens', PasienController::class);
+    Route::resource('pembayarans', JenisPembayaranController::class);
 });
 
 require __DIR__.'/auth.php';

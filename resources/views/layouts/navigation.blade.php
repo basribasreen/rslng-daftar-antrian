@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('pasiens.index')" :active="request()->routeIs('pasiens.index')">
                         {{ __('Pasien') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pembayarans.index')" :active="request()->routeIs('pembayarans.index')">
+                        {{ __('Jenis Pembayaran') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -87,6 +90,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('pasiens.index')" :active="request()->routeIs('pasiens.index')">
                 {{ __('Pasien') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pembayarans.index')" :active="request()->routeIs('pembayarans.index')">
+                {{ __('Jenis Pembayaran') }}
             </x-responsive-nav-link>
         </div>
 

@@ -18,7 +18,12 @@ class JenisPembayaranFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'kode'      => fake()->unique()->regexify('MP-[A-Z]{3}[1-9]{2}'),
+            'nama'      => fake()->randomElement([
+                'BPJS',
+                'UMUM',
+            ]),
+            'is_active' => fake()->boolean(30),
         ];
     }
 }

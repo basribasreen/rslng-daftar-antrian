@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('jenis_pembayarans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique();
+            $table->string('nama')->require();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

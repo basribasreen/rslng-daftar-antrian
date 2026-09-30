@@ -13,7 +13,7 @@ class JenisPembayaranPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can('pembayarans.view-any');
     }
 
     /**
@@ -21,7 +21,7 @@ class JenisPembayaranPolicy
      */
     public function view(User $user, JenisPembayaran $jenisPembayaran): bool
     {
-        return false;
+        return $user->can('pembayarans.view-any');
     }
 
     /**
@@ -29,7 +29,7 @@ class JenisPembayaranPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('pembayarans.create-any');
     }
 
     /**
@@ -37,7 +37,7 @@ class JenisPembayaranPolicy
      */
     public function update(User $user, JenisPembayaran $jenisPembayaran): bool
     {
-        return false;
+        return $user->can('pembayarans.update-any');
     }
 
     /**
@@ -45,7 +45,7 @@ class JenisPembayaranPolicy
      */
     public function delete(User $user, JenisPembayaran $jenisPembayaran): bool
     {
-        return false;
+        return $user->can('pembayarans.delete-any');
     }
 
     /**
