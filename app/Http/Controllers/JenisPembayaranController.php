@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\JenisPembayaran;
+use App\Http\Requests\StoreJenisPembayaranRequest;
+use App\Http\Requests\UpdateJenisPembayaranRequest;
+
+class JenisPembayaranController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreJenisPembayaranRequest $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(JenisPembayaran $jenisPembayaran)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(JenisPembayaran $jenisPembayaran)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateJenisPembayaranRequest $request, JenisPembayaran $jenisPembayaran)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(JenisPembayaran $jenisPembayaran)
+    {
+        //
+    }
+}

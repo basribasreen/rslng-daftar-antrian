@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dokter;
+use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class DokterController extends Controller
+class PasienController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Dokter::class);
-        $data = Dokter::query()
+        $this->authorize('viewAny', Pasien::class);
+        $data = Pasien::query()
         ->search($request->query('q'))
         ->status($request->query('status'))
         ->latest()
         ->paginate(10)
         ->withQueryString();
-        return view('dokters.index', compact('data'));
+        return view('pasiens.index', compact('data'));
     }
 
     /**
@@ -28,9 +28,9 @@ class DokterController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Dokter::class);
-        $item = new Dokter();
-        return view('dokters.create', compact('item'));
+        $this->authorize('create', Pasien::class);
+        $item = new Pasien();
+        return view('pasiens.create', compact('item'));
     }
 
     /**
@@ -38,55 +38,61 @@ class DokterController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Dokter::class);
+        $this->authorize('create', Pasien::class);
         $data = $request->validate([
-            'kode'       => 'required|string|max:20|unique:dokter,kode',
+            'kode'       => 'required|string|max:20|unique:pasien,kode',
+            'nik'       => 'required|string|max:20|unique:pasien,nik',
             'nama'       => 'required|string|max:255',
-            'spesialis'       => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:16',
             'jenis_kelamin' => 'required|string|max:1'
         ]);
 
-        Dokter::create($data);
+        Pasien::create($data);
 
-        return redirect()->route('dokter.index')
+        return redirect()->route('pasiens.index')
             ->with('success', 'data berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Dokter $dokter)
+    public function show(Pasien $pasien)
     {
-        $this->authorize('view', $dokter);   
-        return view('dokters.show', compact('dokter'));
+        $this->authorize('view', $pasien);   
+        return view('pasiens.show', compact('pasien'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dokter $dokter)
+    public function edit(Pasien $pasien)
     {
-        $this->authorize('update', $dokter);
-        return view('dokters.edit', compact('dokter'));
+        $this->authorize('update', $pasien);
+        return view('pasiens.edit', compact('pasien'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dokter $dokter)
+    public function update(Request $request, Pasien $pasien)
     {
-        $this->authorize('update', $dokter);
+        $this->authorize('update', $pasien);
         $data = $request->validate([
             'kode' => [
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('dokters', 'kode')
-                    ->ignore($dokter->id),
+                Rule::unique('pasiens', 'kode')
+                    ->ignore($pasien->id),
+            ],
+            'nik' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('pasiens', 'nik')
+                    ->ignore($pasien->id),
             ],
             'nama'          => 'required|string|max:255',
-            'spesialis'       => 'nullable|string|max:100',
             'phone' => 'nullable|string|max 16',
             'jenis_kelamin' => 'required|string|max:1',
             'is_active'     => 'boolean',
@@ -94,19 +100,19 @@ class DokterController extends Controller
 
         $data['is_active'] = $request->boolean('is_active');
 
-        $dokter->update($data);
+        $pasien->update($data);
 
-        return redirect()->route('dokters.index')
+        return redirect()->route('pasiens.index')
             ->with('success', 'data diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dokter $dokter)
+    public function destroy(Pasien $pasien)
     {
-        $this->authorize('delete', $dokter);
-        $dokter->delete();
+        $this->authorize('delete', $pasien);
+        $pasien->delete();
         return back()->with('success', 'data dihapus.');
     }
 }
