@@ -10,29 +10,10 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto sm:px-8 lg:px-12">
+            @include('pendaftarans._filter')
             <div class="space-y-3">
-                @forelse ($data as $item)
-                    <div class="flex items-start justify-between rounded bg-white p-4 shadow">
-                        <div>
-                            <h2 class="font-semibold">
-                                {{ $item->kode }}
-                            </h2>
-                        </div>
-
-                        <div class="flex gap-2 text-sm">
-                            <a href="{{ route('pendaftarans.edit', $item) }}" class="text-blue-600">Edit</a>
-                            <form action="{{ route('pendaftarans.destroy', $item) }}" method="POST"
-                                onsubmit="return confirm('Hapus Data ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="text-red-600">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-gray-500">Belum ada Data Pendaftaran.</p>
-                @endforelse
+                @include('pendaftarans._table')
             </div>
 
             {{-- lalu paginasi: --}}

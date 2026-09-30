@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dokter;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -106,7 +107,11 @@ class DokterController extends Controller
     public function destroy(Dokter $dokter)
     {
         $this->authorize('delete', $dokter);
-        $dokter->delete();
-        return back()->with('success', 'data dihapus.');
+        try {
+            $deleted = $dokter->delete();
+            return back()->with('success', 'data dihapus.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Terjadi kesalahan saat menghapus data. Silakan coba lagi.');
+        }
     }
 }

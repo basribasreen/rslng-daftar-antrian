@@ -7,6 +7,7 @@ use App\Models\JenisPembayaran;
 use App\Models\Pasien;
 use App\Models\Pendaftaran;
 use App\Models\Poli;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -19,6 +20,12 @@ class PendaftaranController extends Controller
     {
         $this->authorize('viewAny', Pendaftaran::class);
         $data = Pendaftaran::query()
+        ->with([
+            'pasien:id,kode,nama',
+            'dokter:id,kode,nama',
+            'poli:id,kode,nama',
+            'jenisPembayaran:id,kode,nama',
+        ])
         ->search($request->query('q'))
         ->status($request->query('status'))
         ->latest()
@@ -33,11 +40,16 @@ class PendaftaranController extends Controller
     public function create()
     {
         $this->authorize('create', Pendaftaran::class);
+        $nomor = Pendaftaran::nomorBerikutnya(today());
         $item = new Pendaftaran();
+        $item->kode          = $nomor['kode'];
+        $item->nomor_antrian = $nomor['nomor_antrian'];
+        $item->status        = 'menunggu';
         $pasien = Pasien::all(['id', 'kode', 'nama']);
         $dokter = Dokter::all(['id', 'kode', 'nama']);
         $polis = Poli::all(['id', 'kode', 'nama']);
         $jenisPembayaran = JenisPembayaran::all(['id', 'kode','nama']);
+
         return view('pendaftarans.create', [
             'pendaftaran' => $item,
             'pasiens' => $pasien,
@@ -86,7 +98,19 @@ class PendaftaranController extends Controller
     public function edit(Pendaftaran $pendaftaran)
     {
         $this->authorize('update', $pendaftaran);
-        return view('pendaftarans.edit', compact('pendaftaran'));
+        $item = $pendaftaran;
+        $pasien = Pasien::all(['id', 'kode', 'nama']);
+        $dokter = Dokter::all(['id', 'kode', 'nama']);
+        $polis = Poli::all(['id', 'kode', 'nama']);
+        $jenisPembayaran = JenisPembayaran::all(['id', 'kode','nama']);
+
+        return view('pendaftarans.edit', [
+            'pendaftaran' => $item,
+            'pasiens' => $pasien,
+            'dokters' => $dokter,
+            'polis' => $polis,
+            'jenisPembayaran' => $jenisPembayaran,
+        ]);
     }
 
     /**
@@ -127,7 +151,12 @@ class PendaftaranController extends Controller
     public function destroy(Pendaftaran $pendaftaran)
     {
         $this->authorize('delete', $pendaftaran);
-        $pendaftaran->delete();
-        return back()->with('success', 'data dihapus.');
+        // $pendaftaran->delete();
+        try {
+            $deleted = $pendaftaran->delete();
+            return back()->with('success', 'data dihapus.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Terjadi kesalahan saat menghapus data. Silakan coba lagi.');
+        }
     }
 }

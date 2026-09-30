@@ -1,9 +1,11 @@
 <div class="space-y-4">
     <div>
         <label class="block text-sm font-medium">Nomor Registrasi</label>
+        
         <input type="text" name="kode"
                value="{{ old('kode', $pendaftaran->kode ?? '') }}"
                class="mt-1 w-full rounded border px-3 py-2">
+
         @error('kode')
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror
@@ -39,7 +41,6 @@
             value="{{ old('nomor_antrian', $pendaftaran->nomor_antrian ?? '') }}"
             class="mt-1 w-full rounded border px-3 py-2"
         >
-
         @error('nomor_antrian')
             <p class="text-sm text-red-600">{{ $message }}</p>
         @enderror

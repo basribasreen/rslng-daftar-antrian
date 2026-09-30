@@ -8,7 +8,11 @@
     <div class="py-6">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="space-y-3">
-                Edit
+                <form action="{{ route('pendaftarans.update', $pendaftaran) }}" method="POST" class="rounded bg-white p-6 shadow">
+                    @csrf
+                    @method('PUT')
+                    @include('pendaftarans._form')
+                </form>
             </div>
         </div>
     </div>
